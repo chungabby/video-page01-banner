@@ -193,8 +193,17 @@
         }
       }
 
+      function reportHeight() {
+        var h = document.querySelector(".banner").offsetHeight;
+        window.parent.postMessage({ bannerHeight: h }, "*");
+      }
+
       setSource();
-      window.addEventListener("resize", setSource);
+      reportHeight();
+      window.addEventListener("resize", function() {
+        setSource();
+        reportHeight();
+      });
     })();
   </script>
 </body>
