@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>It's Saturday — Banner</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    .banner {
+      position: relative;
+      width: 100%;
+      /* Desktop: 2000:800 = 5:2 */
+      aspect-ratio: 5 / 2;
+      overflow: hidden;
+      background: #111;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 70%;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.60) 0%,
+        rgba(0, 0, 0, 0.15) 55%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      pointer-events: none;
+    }
+
+    .content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0 56px 48px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.75);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      display: block;
+      line-height: 1.5;
+    }
+
+    .title {
+      font-size: 31px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Desktop: small inline button */
+    .btn {
+      display: inline-block;
+      padding: 13px 24px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      color: #FFFEF2;
+      text-decoration: none;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      background: transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #fff;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 767px) {
+      .banner {
+        aspect-ratio: 30 / 49;
+      }
+
+      .content {
+        padding: 0 20px 28px;
+        text-align: left;
+      }
+
+      .eyebrow {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .title {
+        font-size: 31px;
+        margin-bottom: 10px;
+      }
+
+      .desc {
+        font-size: 16px;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+        margin-bottom: 22px;
+      }
+
+      /* Mobile: full-width block button like Aesop */
+      .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 13px 24px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <video
+      id="banner-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+
+    <div class="overlay"></div>
+
+    <div class="content">
+      <span class="eyebrow">走進春日花園裡的香氛之旅</span>
+      <h1 class="title">獻給母親的香氛贈禮</h1>
+      <p class="desc">陪她放下忙碌，好好享受片刻的自己</p>
+      <a class="btn" href="https://its-saturday.com/item/005-candle-set-garden-001" target="_top">
+        查看商品 &nbsp;→
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var DESKTOP = "https://ik.imagekit.io/itssaturday/Video/0430.mov?tr=w-1280,q-65";
+      var MOBILE  = "https://ik.imagekit.io/itssaturday/Video/0430-m.MOV?tr=w-720,q-65";
+      var video   = document.getElementById("banner-video");
+      var current = "";
+
+      function setSource() {
+        var src = window.innerWidth >= 768 ? DESKTOP : MOBILE;
+        if (src !== current) {
+          current = src;
+          video.src = src;
+          video.load();
+          video.play().catch(function () {});
+        }
+      }
+
+      setSource();
+      window.addEventListener("resize", setSource);
+    })();
+  </script>
+</body>
+</html>
