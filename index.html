@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>It's Saturday — Banner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -71,6 +72,7 @@
     }
 
     .title {
+      font-family: 'Noto Serif TC', serif;
       font-size: 31px;
       font-weight: 400;
       color: #fff;
@@ -178,8 +180,8 @@
 
   <script>
     (function () {
-      var DESKTOP = "https://ik.imagekit.io/itssaturday/Video/0430.mov?tr=w-1280,q-65";
-      var MOBILE  = "https://ik.imagekit.io/itssaturday/Video/0430-m.MOV?tr=w-720,q-65";
+      var DESKTOP = "https://ik.imagekit.io/itssaturday/Video/0430.mp4?tr=w-1280,q-65";
+      var MOBILE  = "https://ik.imagekit.io/itssaturday/Video/0430-m.mp4?tr=w-720,q-65";
       var video   = document.getElementById("banner-video");
       var current = "";
 
@@ -203,6 +205,20 @@
       window.addEventListener("resize", function() {
         setSource();
         reportHeight();
+      });
+
+      // iOS Safari 離開再回來時強制重新播放
+      document.addEventListener("visibilitychange", function() {
+        if (!document.hidden) {
+          video.play().catch(function() {});
+        }
+      });
+
+      // iOS Safari 頁面從 bfcache 恢復時
+      window.addEventListener("pageshow", function(e) {
+        if (e.persisted) {
+          video.play().catch(function() {});
+        }
       });
     })();
   </script>
