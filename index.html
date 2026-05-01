@@ -21,7 +21,6 @@
     .banner {
       position: relative;
       width: 100%;
-      /* Desktop: 2000:800 = 5:2 */
       aspect-ratio: 5 / 2;
       overflow: hidden;
       background: #111;
@@ -93,7 +92,6 @@
       margin-right: auto;
     }
 
-    /* Desktop: small inline button */
     .btn {
       display: inline-block;
       padding: 13px 24px 12px;
@@ -118,7 +116,7 @@
     /* ── Mobile ── */
     @media (max-width: 767px) {
       .banner {
-        aspect-ratio: 30 / 49;
+        aspect-ratio: 30 / 45;
       }
 
       .content {
@@ -144,7 +142,6 @@
         margin-bottom: 22px;
       }
 
-      /* Mobile: full-width block button like Aesop */
       .btn {
         display: block;
         width: 100%;
@@ -197,7 +194,7 @@
 
       function reportHeight() {
         var h = document.querySelector(".banner").offsetHeight;
-        window.parent.postMessage({ bannerHeight: h }, "*");
+        window.parent.postMessage({ banner01Height: h }, "*");
       }
 
       setSource();
@@ -207,14 +204,12 @@
         reportHeight();
       });
 
-      // iOS Safari 離開再回來時強制重新播放
       document.addEventListener("visibilitychange", function() {
         if (!document.hidden) {
           video.play().catch(function() {});
         }
       });
 
-      // iOS Safari 頁面從 bfcache 恢復時
       window.addEventListener("pageshow", function(e) {
         if (e.persisted) {
           video.play().catch(function() {});
