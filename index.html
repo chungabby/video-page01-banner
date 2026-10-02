@@ -3,18 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>It's Saturday — Mobile Banner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet" />
+  <title>It's Saturday — 圖文 Banner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@200;300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* ══════════ 設定（改這裡就好） ══════════ */
     :root {
-      --btn-bottom: 12%;                /* 按鈕距離底部的位置 */
-      --shade: rgba(0, 0, 0, .35);      /* 底部漸層陰影，不要就改 transparent */
-      --btn-text: #ffffff;              /* 按鈕文字 */
-      --btn-line: #ffffff;              /* 按鈕框線 */
-      --btn-hover-bg: #ffffff;          /* 按鈕點擊時：底色 */
-      --btn-hover-text: #33230f;        /* 按鈕點擊時：文字 */
-      --placeholder: #8c7053;           /* 圖片載入前的佔位色 */
+      /* ══════════ 顏色設定（各自獨立，改這裡就好） ══════════ */
+      --bg: #a48767;              /* 背景 */
+      --title-color: #fff3e6;     /* 大標題 */
+      --eyebrow-color: #ffffff;   /* 小標「十月限定場次」 */
+      --subtitle-color: #ffffff;  /* 副標「韓式花藝調香課」 */
+      --desc-color: #ffffff;      /* 說明文字 */
+      --btn-text: #ffffff;        /* 按鈕文字 */
+      --btn-line: #ffffff;        /* 按鈕框線 */
+      --btn-hover-bg: #ffffff;    /* 按鈕滑過：底色 */
+      --btn-hover-text: #a48767;  /* 按鈕滑過：文字 */
+      --img-placeholder: #8c7053; /* 圖片載入前的佔位色 */
+
+      /* ══════════ 字型設定 ══════════ */
+      --font: 'Noto Sans TC', sans-serif;   /* 全部文字字型 */
+      --title-size: clamp(30px, 8vw, 44px); /* 手機版標題大小 */
+      --title-weight: 300;    /* 標題粗細：200 極細、300 細 */
+      --title-lh: 1.4;        /* 標題行高 */
+      --title-ls: 0.08em;     /* 標題字距 */
+
+      /* ══════════ 版面設定 ══════════ */
+      --max: 1100px;          /* 平板版內容最大寬度 */
+      --img-max: 420px;       /* 平板版小圖最大寬度 */
     }
 
     *, *::before, *::after {
@@ -25,76 +41,250 @@
 
     html, body {
       width: 100%;
-      height: 100%;
-      background: var(--placeholder);
-      overflow: hidden;
+      background: var(--bg);
+      overflow-x: hidden;
+      font-family: var(--font);
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
     }
 
     .banner {
+      background: var(--bg);
+    }
+
+    /* 左側大圖：手機與平板隱藏 */
+    .hero {
+      display: none;
+    }
+
+    .panel {
+      padding: 40px 24px 56px;
+    }
+
+    .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 大標題 */
+    .title {
       position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: var(--placeholder);
+      z-index: 2;
+      color: var(--title-color);
+      font-weight: var(--title-weight);
+      font-size: var(--title-size);
+      line-height: var(--title-lh);
+      letter-spacing: var(--title-ls);
     }
 
-    .banner img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    /* 小圖（與標題第二行重疊） */
+    .media {
+      position: relative;
+      z-index: 1;
+      width: 46%;
+      margin: calc(var(--title-size) * var(--title-lh) * -0.45) 0 0 auto;
+    }
+    .media img {
       display: block;
-      color: transparent;
-    }
-
-    .shade {
-      position: absolute;
-      left: 0;
-      bottom: 0;
       width: 100%;
-      height: 45%;
-      background: linear-gradient(to bottom, transparent, var(--shade));
-      pointer-events: none;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      color: transparent;
+      background: var(--img-placeholder);
     }
 
+    /* 內文區 */
+    .body {
+      margin-top: 40px;
+      text-align: center;
+    }
+    /* ── 以下字級對應 BVShop 網站設定（p / h3） ── */
+    .eyebrow {               /* 同網站 p */
+      margin-bottom: 4px;
+      color: var(--eyebrow-color);
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 2.2;
+      letter-spacing: 0.06em;
+    }
+    .subtitle {              /* 同網站 h3 */
+      margin-bottom: 8px;
+      color: var(--subtitle-color);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+    }
+    .desc {                  /* 同網站 p */
+      margin: 0 auto 28px;
+      max-width: 30em;
+      color: var(--desc-color);
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 2.2;
+      letter-spacing: 0.06em;
+    }
+
+    /* 按鈕 */
     .btn {
-      position: absolute;
-      left: 50%;
-      bottom: var(--btn-bottom);
-      transform: translateX(-50%);
+      display: inline-block;
       min-width: 220px;
       padding: 16px 32px;
       border: 1px solid var(--btn-line);
       background: transparent;
       color: var(--btn-text);
-      font-family: 'Noto Sans TC', sans-serif;
-      font-size: 16px;
+      font-family: var(--font);
+      font-size: 16px;          /* 與手機版純圖 Banner 按鈕相同 */
       font-weight: 400;
       line-height: 1.5;
+      text-decoration: none;
       letter-spacing: 0.2em;
       text-indent: 0.2em;
       text-align: center;
-      text-decoration: none;
-      white-space: nowrap;
       transition: background-color .25s ease, color .25s ease;
     }
-
     .btn:hover,
     .btn:focus {
       background: var(--btn-hover-bg);
       color: var(--btn-hover-text);
     }
+
+    /* ===== 平板（768px 以上）：單欄，小圖在右 ===== */
+    @media (min-width: 768px) {
+      :root {
+        --title-size: clamp(45px, 5vw, 60px);  /* 平板版標題大小 */
+      }
+      .panel {
+        padding: 64px 48px 72px;
+      }
+      .inner {
+        display: grid;
+        grid-template-columns: 1fr minmax(0, var(--img-max));
+        column-gap: 48px;
+      }
+      .title {
+        grid-column: 1 / 3;
+        grid-row: 1;
+        align-self: start;
+      }
+      .media {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        width: 100%;
+        margin: 0;
+        padding-top: calc(var(--title-size) * var(--title-lh));
+      }
+      .body {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: end;
+        margin-top: 48px;
+        text-align: left;
+      }
+      .desc {
+        margin-left: 0;
+        max-width: 26em;
+      }
+    }
+
+    /* ===== 電腦（1024px 以上）：左大圖＋右文字區 ===== */
+    @media (min-width: 1024px) {
+      :root {
+        --title-size: clamp(36px, 3.4vw, 60px);  /* 電腦版標題大小 */
+        --img-max: 260px;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 600px;
+      }
+      .hero {
+        display: block;
+        position: relative;
+      }
+      .hero img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        color: transparent;
+        background: var(--img-placeholder);
+      }
+      .panel {
+        display: flex;
+        align-items: center;
+        padding: 72px clamp(40px, 4vw, 72px);
+      }
+      .inner {
+        width: 100%;
+        max-width: 640px;
+        margin: 0;
+        column-gap: 40px;
+      }
+      .desc {
+        max-width: 22em;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="banner">
-    <!-- 底圖 → 換成你的圖片網址 -->
-    <img src="https://ik.imagekit.io/itssaturday/banner/20261002-flower-m.jpg" alt="韓式花藝調香課" />
-    <div class="shade"></div>
-    <!-- 按鈕 → 換成你的文字與連結；target="_top" 讓點擊後整頁跳轉，不會只在框框裡開 -->
-    <a class="btn" href="https://its-saturday.com/item/class-202610-flower" target="_top">活動詳情</a>
+    <div class="split">
+
+      <!-- 電腦版左側大圖（手機自動隱藏）→ 換成你的大圖網址 -->
+      <div class="hero">
+        <img src="https://ik.imagekit.io/itssaturday/banner/20261002-flower.jpg" alt="韓式花藝調香課">
+      </div>
+
+      <div class="panel">
+        <div class="inner">
+          <h2 class="title">十月，與花相遇<br>療癒香氛體驗</h2>
+
+          <!-- 標題旁的小圖 → 換成你的小圖網址 -->
+          <div class="media">
+            <img src="https://ik.imagekit.io/itssaturday/banner/20261002-flower-m.jpg" alt="韓式花藝調香課">
+          </div>
+
+          <div class="body">
+            <p class="eyebrow">十月限定場次</p>
+            <h3 class="subtitle">韓式花藝調香課</h3>
+            <p class="desc">一起做出屬於你的季節香氛與花卉</p>
+            <!-- 按鈕 → target="_top" 讓點擊後整頁跳轉 -->
+            <a class="btn" href="https://its-saturday.com/item/class-202610-flower" target="_top">活動詳情</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <script>
+    /* 把內容的實際高度回報給 BVShop 頁面，讓框框高度自動剛好 */
+    (function () {
+      var last = 0;
+      function report() {
+        var h = document.querySelector(".banner").offsetHeight;
+        if (h && h !== last) {
+          last = h;
+          window.parent.postMessage({ ispBannerHeight: h, ispBannerId: "isp-text-banner" }, "*");
+        }
+      }
+      window.addEventListener("load", report);
+      window.addEventListener("resize", report);
+      Array.prototype.forEach.call(document.images, function (img) {
+        img.addEventListener("load", report);
+      });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(report);
+      report();
+      setTimeout(report, 500);
+      setTimeout(report, 1500);
+    })();
+  </script>
 </body>
 </html>
